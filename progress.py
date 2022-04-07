@@ -2,7 +2,6 @@ import telebot
 from telebot import types
 
 import main_menu as menu
-import datetime
 
 from database import BotDB
 
