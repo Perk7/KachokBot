@@ -26,6 +26,7 @@ def progress_handler(msg: telebot.types.Message, bot: telebot.TeleBot):
     
     btns = ['⬅️ В главное меню'] + list(user['exerc'].keys())
     
+    
     if text == '⬅️ В главное меню':
         menu.main_menu(msg, bot)
     elif text in btns:
