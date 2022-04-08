@@ -46,8 +46,9 @@ class BotDB:
         stmt = "SELECT data FROM users WHERE id = (%s)"
         args = (id_user, )
         cursor = self.conn.cursor()
-        data = cursor.fetchall()[0][0]
+        cursor.execute(stmt, args)
         
+        data = cursor.fetchall()[0][0]
         return json.loads(data)
 
     def delete_user(self, id_user):
