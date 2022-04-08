@@ -76,11 +76,13 @@ def update_exerc(msg: telebot.types.Message, bot: telebot.TeleBot):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     user = db.get_user(msg.from_user.id)
     
-    btns = ['⬅️ Назад'] + list(user['exerc'].keys())
+    exercs = list(user['exerc'].keys())
+
+    btns = ['⬅️ Назад'] + exercs
     
     markup.add(*btns)
     
-    message = bot.send_message(msg.chat.id, text='Выбери упражнение, веса которого ты хочешь изменить:', reply_markup=markup)
+    message = bot.send_message(msg.chat.id, text='Выбери упражнение, веса которого ты хочешь изменить:' if exercs else 'У тебя нет упражнений, чтобы их изменять', reply_markup=markup)
     bot.register_next_step_handler(message, update_exerc_select, bot)
 
 def update_exerc_select(msg: telebot.types.Message, bot: telebot.TeleBot):
