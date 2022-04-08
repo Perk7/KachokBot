@@ -26,7 +26,7 @@ class BotDB:
     def is_user(self, id_user):
         stmt = "SELECT id FROM users WHERE id = (?)"
         args = (id_user, )
-        return bool(self.conn.execute(stmt, args).fetchall())
+        return bool(self.conn.execute(stmt, args).fetchall()[0])
 
     def update_user(self, id_user, obj):
         stmt = "UPDATE users SET data = (?) WHERE id = (?)"
