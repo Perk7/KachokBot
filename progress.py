@@ -12,11 +12,13 @@ def progress_menu(msg: telebot.types.Message, bot: telebot.TeleBot):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     user = db.get_user(msg.from_user.id)
     
-    btns = ['⬅️ В главное меню'] + list(user['exerc'].keys())
+    exercs = list(user['exerc'].keys())
+
+    btns = ['⬅️ В главное меню'] + exercs
     
     markup.add(*btns)
     
-    message = bot.send_message(msg.chat.id, text='Выбери упражнение, прогресс по которому ты хочешь посмотреть', reply_markup=markup)
+    message = bot.send_message(msg.chat.id, text='Выбери упражнение, прогресс по которому ты хочешь посмотреть' if exercs else 'У вас нет упражнений, чтобы смотреть по ним прогресс", reply_markup=markup)
     bot.register_next_step_handler(message, progress_handler, bot)
     
 def progress_handler(msg: telebot.types.Message, bot: telebot.TeleBot):
