@@ -13,8 +13,7 @@ db.setup()
 
 bot = telebot.TeleBot('5202574376:AAFNTZQTljHdZulpE5C1FYgfPxy0j0izi6c')
 
-@bot.message_handler(commands=["start"])
-def start(message: telebot.types.Message):
+def handle_start(message: telebot.types.Message, bot: telebot.TeleBot):
     if db.is_user(message.from_user.id):
         menu.main_menu(message, bot)
     else:
@@ -23,6 +22,15 @@ def start(message: telebot.types.Message):
         bot.send_message(message.chat.id, f'Привет, я буду тебя контролировать и держать в памяти некоторые вещи:\
             \n*• Твои персональные веса*\n*• Динамику прогресса*\n*• Дни окончания срока абонементов*', \
             parse_mode='Markdown', reply_markup=markup)
+
+@bot.message_handler(commands=["start"])
+def start(message: telebot.types.Message):
+    handle_start(message, bot)
+
+@bot.message_handler(commands=["delete"])
+def delete_user(message: telebot.types.Message):
+    if db.is_user(message.from_user.id): 
+        db.delete_user(message.from_user.id)
 
 @bot.message_handler(commands=["help"])
 def help_bot(message: telebot.types.Message):
@@ -33,7 +41,7 @@ def handle_text(message: telebot.types.Message):
     msg = message.text.lower()
     
     if msg in ['качок', 'в главное меню']:
-        menu.main_menu(message, bot)
+        handle_start(message, bot)
     elif msg == '▶️ начать':
         acq.start(message, bot)
     elif msg == '💶 абонемент':

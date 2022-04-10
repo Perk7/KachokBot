@@ -47,7 +47,7 @@ class BotDB:
         args = (id_user, )
         cursor = self.conn.cursor()
         cursor.execute(stmt, args)
-
+        
         data = cursor.fetchall()[0][0]
         return json.loads(data)
 
