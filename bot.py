@@ -21,7 +21,7 @@ def start(message: telebot.types.Message):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton('▶️ Начать'))
         
         bot.send_message(message.chat.id, f'Привет, я буду тебя контролировать и держать в памяти некоторые вещи:\
-            \n*• Расписание*\n*• Ваши персональные веса*\n*• Динамику прогресса*\n*• Дни окончания срока абонементов*', \
+            \n*• Твои персональные веса*\n*• Динамику прогресса*\n*• Дни окончания срока абонементов*', \
             parse_mode='Markdown', reply_markup=markup)
 
 @bot.message_handler(commands=["help"])
