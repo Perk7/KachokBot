@@ -1,3 +1,5 @@
+from os import environ as env
+
 import telebot
 from telebot import types
 
@@ -11,7 +13,7 @@ import progress as progr
 db = BotDB()
 db.setup()
 
-bot = telebot.TeleBot('5202574376:AAFNTZQTljHdZulpE5C1FYgfPxy0j0izi6c')
+bot = telebot.TeleBot(env.get('TOKEN'))
 
 def handle_start(message: telebot.types.Message, bot: telebot.TeleBot):
     if db.is_user(message.from_user.id):

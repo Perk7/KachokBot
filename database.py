@@ -1,15 +1,14 @@
 import json
 import datetime
-import psycopg2 as ps
-import os
+from os import environ as env 
 
-env = os.environ
+import psycopg2 as ps
 
 class BotDB:
-    def __init__(self, dbname="d3u1kuoi5v2vjf"):
+    def __init__(self, dbname=env.get('DB_NAME')):
         self.dbname = dbname
         self.conn = ps.connect(dbname=dbname,
-                               user=env.get('DB_USER'), password='7da6c906fd65f5c337e5f88f1168b30a6c9cd1fd04052570486d711febbca39c', host='ec2-52-18-116-67.eu-west-1.compute.amazonaws.com', port='5432')
+                               user=env.get('DB_USER'), password=env.get("DB_PASSWORD"), host=env.get('DB_HOST'), port='5432')
 
     def setup(self):
         stmt = "CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY, data TEXT)"
