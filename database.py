@@ -3,12 +3,14 @@ import datetime
 from os import environ as env 
 
 import psycopg2 as ps
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class BotDB:
     def __init__(self, dbname=env.get('DB_NAME')):
         self.dbname = dbname
-        self.conn = ps.connect(dbname=dbname,
-                               user=env.get('DB_USER'), password=env.get("DB_PASSWORD"), host=env.get('DB_HOST'), port='5432')
+        self.conn = ps.connect('postgres://ddqvznkzwlflhr:6e9103ebf2f22bab0f338abae9f35cfe5e8044a0510599778f1e6dee65c2002b@ec2-52-214-23-110.eu-west-1.compute.amazonaws.com:5432/d7df01fehc2j27')
 
     def setup(self):
         stmt = "CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY, data TEXT)"

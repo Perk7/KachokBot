@@ -2,6 +2,9 @@ from os import environ as env
 
 import telebot
 from telebot import types
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import main_menu as menu
 import acquain as acq
